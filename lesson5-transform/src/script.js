@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import { Mesh, MeshBasicMaterial } from 'three';
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -10,10 +11,52 @@ const scene = new THREE.Scene()
 /**
  * Objects
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
+
+const group = new THREE.Group();
+scene.add(group);
+
+const cube1 = new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new MeshBasicMaterial({ color: 0xff0000 })
+);
+group.add(cube1);
+
+const cube2= new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new MeshBasicMaterial({ color: 0x00ff00 })
+);
+cube2.position.x = -2;
+group.add(cube2);
+
+const cube3= new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new MeshBasicMaterial({ color: 0x0000ff })
+);
+cube3.position.x = 2;
+group.add(cube3);
+
+/* const geometry = new THREE.BoxGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
+mesh.position.x = 1;
+mesh.position.y = -0.6;
+mesh.position.z = -1;
+scene.add(mesh) */
+
+
+//Axes Helper
+const axesHelper = new THREE.AxesHelper(1);
+scene.add(axesHelper);
+
+//Scale
+/* mesh.scale.x = 5;
+mesh.scale.y = 0.5;
+mesh.scale.z = 0.5; */
+
+//Rotation
+/* mesh.rotation.reorder('YXZ');
+mesh.rotation.y = Math.PI * 0.5;
+mesh.rotation.x = Math.PI * 0.25; */
 
 /**
  * Sizes
@@ -28,7 +71,11 @@ const sizes = {
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 3
+camera.position.y = 0
+camera.position.x = 0
 scene.add(camera)
+
+//camera.lookAt(mesh.position);
 
 /**
  * Renderer
